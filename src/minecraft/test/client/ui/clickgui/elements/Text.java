@@ -1,0 +1,41 @@
+package test.client.ui.clickgui.elements;
+
+import net.minecraft.client.Minecraft;
+import test.client.ui.GuiElement;
+
+public class Text implements GuiElement {
+    private final String text;
+    private final GuiElement parent;
+    private final float y;
+
+    public Text(String text, GuiElement parent, float y) {
+        this.text = text;
+        this.parent = parent;
+        this.y = y;
+    }
+
+    @Override
+    public void draw(float mouseX, float mouseY, float partialTicks) {
+        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(text, 4, 6, false, true, -1, false);
+    }
+
+    @Override
+    public float getX() {
+        return 0;
+    }
+
+    @Override
+    public float getY() {
+        return y;
+    }
+
+    @Override
+    public float getWidth() {
+        return parent.getWidth();
+    }
+
+    @Override
+    public float getHeight() {
+        return 12;
+    }
+}
