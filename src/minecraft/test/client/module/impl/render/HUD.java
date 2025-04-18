@@ -7,9 +7,7 @@ import test.client.Client;
 import test.client.event.impl.EventRenderGameOverlay;
 import test.client.module.Module;
 import test.client.module.ModuleCategory;
-import test.client.utils.RenderUtil;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class HUD extends Module {
