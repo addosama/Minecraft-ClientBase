@@ -2,6 +2,9 @@ package test.client.module;
 
 import net.minecraft.client.Minecraft;
 import test.client.Client;
+import test.client.utils.setting.Setting;
+
+import java.util.ArrayList;
 
 public class Module {
     private final String name;
@@ -11,6 +14,8 @@ public class Module {
     private int keybind;
     private boolean enabled;
 
+    protected final ArrayList<Setting<?>> settings;
+
     protected final Minecraft mc = Minecraft.getMinecraft();
 
     public Module(String name, String description, ModuleCategory category) {
@@ -19,6 +24,7 @@ public class Module {
         this.category = category;
         this.keybind = 0;
         this.enabled = false;
+        this.settings = new ArrayList<>();
     }
 
     public String getName() {
