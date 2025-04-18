@@ -69,4 +69,8 @@ public class Module {
 
     protected void onEnable() {}
     protected void onDisable() {}
+
+    public ArrayList<Setting<?>> getSettings() {
+        return settings;
+    }
 }

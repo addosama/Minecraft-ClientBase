@@ -6,6 +6,7 @@ import test.client.event.impl.EventKey;
 import test.client.module.impl.movement.Sprint;
 import test.client.module.impl.render.CGUI;
 import test.client.module.impl.render.HUD;
+import test.client.module.impl.render.TestModule;
 
 import java.util.*;
 
@@ -19,6 +20,7 @@ public class ModuleManager {
 
     public void loadMods() {
         register(new Sprint());
+        register(new TestModule());
         register(new HUD());
         register(new CGUI());
     }
