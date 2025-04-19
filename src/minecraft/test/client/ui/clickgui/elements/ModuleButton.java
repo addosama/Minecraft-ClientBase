@@ -10,6 +10,7 @@ import test.client.utils.setting.impl.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ModuleButton implements GuiElement {
     private final Module module;
@@ -17,9 +18,18 @@ public class ModuleButton implements GuiElement {
     private boolean showSettings;
 
     private ArrayList<GuiElement> settings;
+    private static HashMap<GuiElement, Boolean> draggingMap;
+    public void setDragging(SettingElement e, boolean dragging) {
+        draggingMap.put(e, dragging );
+    }
+    public boolean isDragging(SettingElement e) {
+        boolean r = draggingMap.get(e);
+        return r;
+    }
 
     public ModuleButton(Module module) {
         this.module = module;
+        draggingMap = new HashMap<>();
         updateSettings();
         showSettings = false;
     }
@@ -27,15 +37,16 @@ public class ModuleButton implements GuiElement {
     private void updateSettings() {
         ArrayList<GuiElement> list = new ArrayList<>();
         if (module.getSettings().isEmpty()) {
-            list.add(new Text("这个功能目前没有设置", null));
+            list.add(new Text("这个功能目前没有设置", this));
         } else {
-            GuiElement last = null;
+            GuiElement last = this;
             for (Setting<?> setting : module.getSettings()) {
                 if (setting instanceof BooleanSetting) {
                     last = new CheckBox((BooleanSetting) setting, last);
                     list.add(last);
                 } else if (setting instanceof NumberSetting) {
-                    last = new Slider((NumberSetting<Number>) setting, last);
+                    last = new Slider((NumberSetting) setting, last);
+                    draggingMap.putIfAbsent(last, false);
                     list.add(last);
                 }
             }

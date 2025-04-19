@@ -7,7 +7,7 @@ import test.client.utils.setting.impl.BooleanSetting;
 
 import java.awt.*;
 
-public class CheckBox implements GuiElement {
+public class CheckBox implements SettingElement {
     private final BooleanSetting setting;
     private final GuiElement parent;
     private final float y;
@@ -15,7 +15,7 @@ public class CheckBox implements GuiElement {
     public CheckBox(BooleanSetting setting, GuiElement parent) {
         this.setting = setting;
         this.parent = parent;
-        this.y = parent==null? 0 : parent.getY() + parent.getHeight();
+        this.y = parent instanceof ModuleButton? 0 : parent.getY() + parent.getHeight();
     }
 
     @Override
@@ -48,5 +48,10 @@ public class CheckBox implements GuiElement {
     @Override
     public float getHeight() {
         return 20;
+    }
+
+    @Override
+    public GuiElement getParent() {
+        return parent;
     }
 }

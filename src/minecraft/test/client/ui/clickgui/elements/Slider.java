@@ -10,7 +10,7 @@ import test.client.utils.setting.impl.NumberSetting;
 import java.awt.*;
 import java.text.NumberFormat;
 
-public class Slider implements GuiElement {
+public class Slider implements SettingElement {
     private final NumberSetting<Number> setting;
     private final GuiElement parent;
     private final float y;
@@ -18,11 +18,8 @@ public class Slider implements GuiElement {
     public Slider(NumberSetting<Number> setting, GuiElement parent) {
         this.setting = setting;
         this.parent = parent;
-        this.y = parent==null? 0 : parent.getY() + parent.getHeight();
+        this.y = parent instanceof ModuleButton? 0 : parent.getY() + parent.getHeight();
     }
-
-    private static boolean dragging;
-    private float dragX;
 
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
@@ -33,7 +30,8 @@ public class Slider implements GuiElement {
         float width = getWidth() - x - 4;
         double inv = (setting.getMaxValue().doubleValue() - setting.getMinValue().doubleValue());
 
-        if (dragging) {
+        // TODO: 修复拖动
+        if (getModuleButton(this).isDragging(this)) {
             double val = setting.getMinValue().doubleValue() + (MathHelper.clamp_double((mouseX - x) / width, 0, 1)) * inv;
             setting.setValue(val);
         }
@@ -50,7 +48,7 @@ public class Slider implements GuiElement {
         float x = Minecraft.getMinecraft().fontRendererObj.getStringWidth(setting.getName()) + 8;
         if (RenderUtil.isHoveringArea(mouseX, mouseY, x, 4, getWidth() - x - 4, 12)) {
             if (mouseButton == 0) {
-                dragging = true;
+                getModuleButton(parent).setDragging(this, true);
             }
         }
     }
@@ -59,7 +57,7 @@ public class Slider implements GuiElement {
     public void mouseReleased(float mouseX, float mouseY, int state) {
         float x = Minecraft.getMinecraft().fontRendererObj.getStringWidth(setting.getName()) + 8;
         if (RenderUtil.isHoveringArea(mouseX, mouseY, x, 4, getWidth() - x - 4, 12)) {
-            dragging = false;
+            getModuleButton(parent).setDragging(this, false);
         }
     }
 
@@ -81,5 +79,10 @@ public class Slider implements GuiElement {
     @Override
     public float getHeight() {
         return 20;
+    }
+
+    @Override
+    public GuiElement getParent() {
+        return parent;
     }
 }
