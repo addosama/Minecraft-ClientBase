@@ -8,10 +8,10 @@ public class Text implements GuiElement {
     private final GuiElement parent;
     private final float y;
 
-    public Text(String text, GuiElement parent, float y) {
+    public Text(String text, GuiElement parent) {
         this.text = text;
         this.parent = parent;
-        this.y = y;
+        this.y = parent==null? 0 : parent.getY() + parent.getHeight();
     }
 
     @Override

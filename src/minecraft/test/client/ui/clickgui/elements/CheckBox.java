@@ -12,10 +12,10 @@ public class CheckBox implements GuiElement {
     private final GuiElement parent;
     private final float y;
 
-    public CheckBox(BooleanSetting setting, GuiElement parent, float y) {
+    public CheckBox(BooleanSetting setting, GuiElement parent) {
         this.setting = setting;
         this.parent = parent;
-        this.y = y;
+        this.y = parent==null? 0 : parent.getY() + parent.getHeight();
     }
 
     @Override

@@ -7,6 +7,9 @@ import test.client.ui.GuiElement;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.Setting;
 import test.client.utils.setting.impl.BooleanSetting;
+import test.client.utils.setting.impl.DoubleSetting;
+import test.client.utils.setting.impl.FloatSetting;
+import test.client.utils.setting.impl.IntegerSetting;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,14 +30,13 @@ public class ModuleButton implements GuiElement {
     private void updateSettings() {
         ArrayList<GuiElement> list = new ArrayList<>();
         if (module.getSettings().isEmpty()) {
-            list.add(new Text("这个功能目前没有设置", this, 0));
+            list.add(new Text("这个功能目前没有设置", null));
         } else {
-            float y = 0;
+            GuiElement last = null;
             for (Setting<?> setting : module.getSettings()) {
                 if (setting instanceof BooleanSetting) {
-                    CheckBox c = new CheckBox((BooleanSetting) setting, this, 0);
-                    list.add(c);
-                    y += c.getHeight();
+                    last = new CheckBox((BooleanSetting) setting, last);
+                    list.add(last);
                 }
             }
         }
