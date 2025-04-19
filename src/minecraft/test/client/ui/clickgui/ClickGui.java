@@ -50,7 +50,7 @@ public class ClickGui extends GuiScreen {
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         for (CategoryPanel p : panels) {
-            if (p.isHovering(mouseX, mouseY - y)) p.mouseReleased(mouseX, mouseY, state);
+            if (p.isHovering(mouseX, mouseY - y)) p.mouseReleased((mouseX - p.getX()), (mouseY - y - p.getY()), state);
         }
     }
 

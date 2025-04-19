@@ -42,7 +42,7 @@ public class CheckBox implements GuiElement {
 
     @Override
     public float getWidth() {
-        return parent.getWidth();
+        return 125;
     }
 
     @Override

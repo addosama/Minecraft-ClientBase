@@ -6,7 +6,7 @@ public interface GuiElement {
     void draw(float mouseX, float mouseY, float partialTicks);
     default void mouseClicked(float mouseX, float mouseY, int mouseButton) {}
     default void mouseScrolled(float mouseX, float mouseY, float wheelInput) {}
-    default void mouseReleased(int mouseX, int mouseY, int state) {}
+    default void mouseReleased(float mouseX, float mouseY, int state) {}
 
     float getX();
     float getY();

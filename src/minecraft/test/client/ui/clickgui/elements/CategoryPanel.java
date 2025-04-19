@@ -32,6 +32,10 @@ public class CategoryPanel implements GuiElement {
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
         GL11.glPushMatrix();
+        if (dragging) {
+            x = mouseX - dragX;
+            y = mouseY - dragY;
+        }
         GL11.glTranslatef(x, y, 0);
         RenderUtil.drawRect(0, 0, getWidth(), getHeight(), new Color(0, 0, 0, 150).getRGB());
         RenderUtil.drawHGradientRect(0,0,getWidth(),20, new Color(253, 137, 109).getRGB(), new Color(255, 218, 98).getRGB());
@@ -48,17 +52,42 @@ public class CategoryPanel implements GuiElement {
         GL11.glPopMatrix();
     }
 
+    private boolean dragging;
+    private float dragX, dragY;
+
     @Override
     public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
-        if ((RenderUtil.isHoveringArea(mouseX, mouseY, 0, 0, getWidth(), 20) && mouseButton == 1) || (RenderUtil.isHoveringArea(mouseX, mouseY, 117-Minecraft.getMinecraft().fontRendererObj.getStringWidth(stacked?"+":"-"), 0, 125, 20) && mouseButton == 0)) {
-            // 折叠
-            stacked = !stacked;
+        if (RenderUtil.isHoveringArea(mouseX, mouseY, 0, 0, getWidth(), 20)) {
+            if (mouseButton == 1 || (RenderUtil.isHoveringArea(mouseX, mouseY, 117-Minecraft.getMinecraft().fontRendererObj.getStringWidth(stacked?"+":"-"), 0, 125, 20) && mouseButton == 0)) {
+                // 折叠
+                stacked = !stacked;
+                return;
+            }
+            if (mouseButton == 0) {
+                dragging = true;
+                dragX = mouseX;
+                dragY = mouseY;
+            }
         }
+
         if (!stacked) {
             for (ModuleButton m : modules) {
                 if (m.isHovering(mouseX, mouseY)) {
                     m.mouseClicked(mouseX, mouseY - m.getY(), mouseButton);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void mouseReleased(float mouseX, float mouseY, int state) {
+        if (RenderUtil.isHoveringArea(mouseX, mouseY, 0, 0, getWidth(), 20)) {
+            dragging = false;
+            dragX = 0;
+            dragY = 0;
+        } else if (!stacked) {
+            for (ModuleButton m : modules) {
+                if (m.isHovering(mouseX, mouseY)) m.mouseReleased(mouseX, mouseY -m.getY(), state);
             }
         }
     }

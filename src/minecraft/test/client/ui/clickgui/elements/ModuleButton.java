@@ -6,10 +6,7 @@ import test.client.module.Module;
 import test.client.ui.GuiElement;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.Setting;
-import test.client.utils.setting.impl.BooleanSetting;
-import test.client.utils.setting.impl.DoubleSetting;
-import test.client.utils.setting.impl.FloatSetting;
-import test.client.utils.setting.impl.IntegerSetting;
+import test.client.utils.setting.impl.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,6 +33,9 @@ public class ModuleButton implements GuiElement {
             for (Setting<?> setting : module.getSettings()) {
                 if (setting instanceof BooleanSetting) {
                     last = new CheckBox((BooleanSetting) setting, last);
+                    list.add(last);
+                } else if (setting instanceof NumberSetting) {
+                    last = new Slider((NumberSetting<? extends Number>) setting, last);
                     list.add(last);
                 }
             }
@@ -77,6 +77,11 @@ public class ModuleButton implements GuiElement {
         } else {
             for (GuiElement e : settings) if (e.isHovering(mouseX, mouseY-20)) e.mouseClicked(mouseX, mouseY - e.getY(), mouseButton);
         }
+    }
+
+    @Override
+    public void mouseReleased(float mouseX, float mouseY, int state) {
+        GuiElement.super.mouseReleased(mouseX, mouseY, state);
     }
 
     @Override

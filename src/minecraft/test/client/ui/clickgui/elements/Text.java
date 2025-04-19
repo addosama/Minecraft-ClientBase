@@ -31,7 +31,7 @@ public class Text implements GuiElement {
 
     @Override
     public float getWidth() {
-        return parent.getWidth();
+        return 125;
     }
 
     @Override
