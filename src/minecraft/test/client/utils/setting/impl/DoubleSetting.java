@@ -7,7 +7,12 @@ public class DoubleSetting extends NumberSetting<Double> {
     }
 
     @Override
-    public void setValue(Double value) {
-        super.setValue(Math.max(getMinValue(), Math.min(getMaxValue(), Math.round(value / getInc()) * getInc())));
+    public void setValue(Number value) {
+        super.setValue(Math.max(getMinValue(), Math.min(getMaxValue(), Math.round(value.doubleValue() / getInc()) * getInc())));
+    }
+
+    @Override
+    public Double getValue() {
+        return super.getValue().doubleValue();
     }
 }

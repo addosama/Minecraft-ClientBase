@@ -7,7 +7,12 @@ public class FloatSetting extends NumberSetting<Float> {
     }
 
     @Override
-    public void setValue(Float value) {
-        super.setValue(Math.max(getMinValue(), Math.min(getMaxValue(), Math.round(value / getInc()) * getInc())));
+    public void setValue(Number value) {
+        super.setValue(Math.max(getMinValue(), Math.min(getMaxValue(), Math.round(value.floatValue() / getInc()) * getInc())));
+    }
+
+    @Override
+    public Float getValue() {
+        return super.getValue().floatValue();
     }
 }

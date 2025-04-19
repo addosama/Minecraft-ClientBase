@@ -7,7 +7,12 @@ public class IntegerSetting extends NumberSetting<Integer> {
     }
 
     @Override
-    public void setValue(Integer value) {
-        super.setValue(Math.max(getMinValue(), Math.min(getMaxValue(), Math.round(value / getInc()) * getInc())));
+    public void setValue(Number value) {
+        super.setValue(Math.max(getMinValue(), Math.min(getMaxValue(), Math.round((float) value.intValue() / getInc()) * getInc())));
+    }
+
+    @Override
+    public Integer getValue() {
+        return super.getValue().intValue();
     }
 }
