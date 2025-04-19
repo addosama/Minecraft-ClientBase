@@ -33,8 +33,8 @@ public class CategoryPanel implements GuiElement {
     public void draw(float mouseX, float mouseY, float partialTicks) {
         GL11.glPushMatrix();
         if (dragging) {
-            x = mouseX - dragX;
-            y = mouseY - dragY;
+            x = mouseX - dragX + getX();
+            y = mouseY - dragY + getY();
         }
         GL11.glTranslatef(x, y, 0);
         RenderUtil.drawRect(0, 0, getWidth(), getHeight(), new Color(0, 0, 0, 150).getRGB());
@@ -45,7 +45,7 @@ public class CategoryPanel implements GuiElement {
             float f = 20;
             for (ModuleButton m : modules) {
                 m.setY(f);
-                m.draw(mouseX, mouseY, partialTicks);
+                m.draw(mouseX, mouseY - m.getY(), partialTicks);
                 f = f + m.getHeight();
             }
         }

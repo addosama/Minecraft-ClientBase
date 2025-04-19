@@ -33,7 +33,7 @@ public class ClickGui extends GuiScreen {
         GL11.glPushMatrix();
         GL11.glTranslatef(0, y, 0);
         for (CategoryPanel p : panels) {
-            p.draw(mouseX, mouseY-y, partialTicks);
+            p.draw(mouseX - p.getX(), mouseY-y - p.getY(), partialTicks);
         }
         GL11.glPopMatrix();
     }

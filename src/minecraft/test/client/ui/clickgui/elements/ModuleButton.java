@@ -35,7 +35,7 @@ public class ModuleButton implements GuiElement {
                     last = new CheckBox((BooleanSetting) setting, last);
                     list.add(last);
                 } else if (setting instanceof NumberSetting) {
-                    last = new Slider((NumberSetting<? extends Number>) setting, last);
+                    last = new Slider((NumberSetting<Number>) setting, last);
                     list.add(last);
                 }
             }
@@ -56,7 +56,7 @@ public class ModuleButton implements GuiElement {
             for (GuiElement e : settings) {
                 GL11.glPushMatrix();
                 GL11.glTranslatef(0, f, 0);
-                e.draw(mouseX, mouseY, partialTicks);
+                e.draw(mouseX, mouseY - e.getY(), partialTicks);
                 GL11.glPopMatrix();
                 f = f + e.getHeight();
             }
@@ -75,13 +75,13 @@ public class ModuleButton implements GuiElement {
                 showSettings = !showSettings;
             }
         } else {
-            for (GuiElement e : settings) if (e.isHovering(mouseX, mouseY-20)) e.mouseClicked(mouseX, mouseY - e.getY(), mouseButton);
+            for (GuiElement e : settings) if (e.isHovering(mouseX, mouseY-20)) e.mouseClicked(mouseX, mouseY - 20 - e.getY(), mouseButton);
         }
     }
 
     @Override
     public void mouseReleased(float mouseX, float mouseY, int state) {
-        GuiElement.super.mouseReleased(mouseX, mouseY, state);
+        for (GuiElement e : settings) if (e.isHovering(mouseX, mouseY-20)) e.mouseReleased(mouseX, mouseY - 20 - e.getY(), state);
     }
 
     @Override

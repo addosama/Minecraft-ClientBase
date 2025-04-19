@@ -2,43 +2,65 @@ package test.client.ui.clickgui.elements;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.MathHelper;
 import test.client.ui.GuiElement;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.impl.NumberSetting;
 
 import java.awt.*;
+import java.text.NumberFormat;
 
 public class Slider implements GuiElement {
-    private final NumberSetting<? extends Number> setting;
+    private final NumberSetting<Number> setting;
     private final GuiElement parent;
     private final float y;
 
-    public Slider(NumberSetting<? extends Number> setting, GuiElement parent) {
+    public Slider(NumberSetting<Number> setting, GuiElement parent) {
         this.setting = setting;
         this.parent = parent;
         this.y = parent==null? 0 : parent.getY() + parent.getHeight();
     }
 
+    private static boolean dragging;
+    private float dragX;
+
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
+
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
         fr.drawCenteredString(setting.getName(), 4, 10, false, true, -1, false);
         float x = fr.getStringWidth(setting.getName()) + 8;
         float width = getWidth() - x - 4;
-        float w2 = (float) (width * (setting.getValue().doubleValue() / (setting.getMaxValue().doubleValue() - setting.getMinValue().doubleValue())));
+        double inv = (setting.getMaxValue().doubleValue() - setting.getMinValue().doubleValue());
+
+        if (dragging) {
+            double val = setting.getMinValue().doubleValue() + (MathHelper.clamp_double((mouseX - x) / width, 0, 1)) * inv;
+            setting.setValue(val);
+        }
+
+        float w2 = (float) (width * setting.getValue().doubleValue() / inv);
+
         RenderUtil.drawRect(x, 4, width, 12, new Color(0,0,0,125).getRGB());
         RenderUtil.drawRect(x+1, 5, w2, 10, new Color(253, 137, 109).getRGB());
-        fr.drawCenteredString(setting.getValue().toString(), x + (width / 2), 10, true, true, -1, true);
+        fr.drawCenteredString(NumberFormat.getInstance().format(setting.getValue()), x + (width / 2), 10, true, true, -1, true);
     }
 
     @Override
     public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
-        GuiElement.super.mouseClicked(mouseX, mouseY, mouseButton);
+        float x = Minecraft.getMinecraft().fontRendererObj.getStringWidth(setting.getName()) + 8;
+        if (RenderUtil.isHoveringArea(mouseX, mouseY, x, 4, getWidth() - x - 4, 12)) {
+            if (mouseButton == 0) {
+                dragging = true;
+            }
+        }
     }
 
     @Override
     public void mouseReleased(float mouseX, float mouseY, int state) {
-        GuiElement.super.mouseReleased(mouseX, mouseY, state);
+        float x = Minecraft.getMinecraft().fontRendererObj.getStringWidth(setting.getName()) + 8;
+        if (RenderUtil.isHoveringArea(mouseX, mouseY, x, 4, getWidth() - x - 4, 12)) {
+            dragging = false;
+        }
     }
 
     @Override
