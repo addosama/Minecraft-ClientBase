@@ -30,7 +30,7 @@ public class Slider implements SettingElement {
         float width = getWidth() - x - 4;
         double inv = (setting.getMaxValue().doubleValue() - setting.getMinValue().doubleValue());
 
-        if (getModuleButton(this).isDragging(this)) {
+        if (getModuleButton(this).isSliderDragging(this)) {
             double val = setting.getMinValue().doubleValue() + (MathHelper.clamp_double((mouseX - x) / width, 0, 1)) * inv;
             setting.setValue(val);
         }
@@ -47,7 +47,7 @@ public class Slider implements SettingElement {
         float x = Minecraft.getMinecraft().fontRendererObj.getStringWidth(setting.getName()) + 8;
         if (RenderUtil.isHoveringArea(mouseX, mouseY, x, 4, getWidth() - x - 4, 12)) {
             if (mouseButton == 0) {
-                getModuleButton(parent).setDragging(this, true);
+                getModuleButton(parent).setSliderDragging(this, true);
             }
         }
     }
