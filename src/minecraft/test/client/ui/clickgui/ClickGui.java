@@ -7,6 +7,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import test.client.module.ModuleCategory;
 import test.client.ui.clickgui.elements.CategoryPanel;
+import test.client.ui.clickgui.elements.ModuleButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class ClickGui extends GuiScreen {
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         for (CategoryPanel p : panels) {
             if (p.isHovering(mouseX, mouseY - y)) p.mouseReleased((mouseX - p.getX()), (mouseY - y - p.getY()), state);
+            for (ModuleButton m : p.getModules()) m.resetDragging();
         }
     }
 

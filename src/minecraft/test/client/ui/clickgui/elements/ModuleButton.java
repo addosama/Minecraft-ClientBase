@@ -18,18 +18,18 @@ public class ModuleButton implements GuiElement {
     private boolean showSettings;
 
     private ArrayList<GuiElement> settings;
-    private static HashMap<GuiElement, Boolean> draggingMap;
-    public void setDragging(SettingElement e, boolean dragging) {
-        draggingMap.put(e, dragging );
+    private final HashMap<NumberSetting<?>, Boolean> sliderDraggingMap;
+    public void setDragging(Slider e, boolean dragging) {
+        sliderDraggingMap.put(e.getSetting(), dragging );
     }
-    public boolean isDragging(SettingElement e) {
-        boolean r = draggingMap.get(e);
+    public boolean isDragging(Slider e) {
+        boolean r = sliderDraggingMap.get(e.getSetting());
         return r;
     }
 
     public ModuleButton(Module module) {
         this.module = module;
-        draggingMap = new HashMap<>();
+        sliderDraggingMap = new HashMap<>();
         updateSettings();
         showSettings = false;
     }
@@ -46,7 +46,7 @@ public class ModuleButton implements GuiElement {
                     list.add(last);
                 } else if (setting instanceof NumberSetting) {
                     last = new Slider((NumberSetting) setting, last);
-                    draggingMap.putIfAbsent(last, false);
+                    sliderDraggingMap.putIfAbsent(((Slider)last).getSetting(), false);
                     list.add(last);
                 }
             }
@@ -92,7 +92,12 @@ public class ModuleButton implements GuiElement {
 
     @Override
     public void mouseReleased(float mouseX, float mouseY, int state) {
-        for (GuiElement e : settings) if (e.isHovering(mouseX, mouseY-20)) e.mouseReleased(mouseX, mouseY - 20 - e.getY(), state);
+        for (GuiElement e : settings) {
+            if (e.isHovering(mouseX, mouseY-20)) e.mouseReleased(mouseX, mouseY - 20 - e.getY(), state);
+            if (e instanceof Slider) {
+                setDragging((Slider) e, false);
+            }
+        }
     }
 
     @Override
@@ -121,5 +126,13 @@ public class ModuleButton implements GuiElement {
             for (GuiElement e : settings) f += e.getHeight();
         }
         return f;
+    }
+
+    public void resetDragging() {
+        for (GuiElement e : settings) {
+            if (e instanceof Slider) {
+                setDragging((Slider) e, false);
+            }
+        }
     }
 }
