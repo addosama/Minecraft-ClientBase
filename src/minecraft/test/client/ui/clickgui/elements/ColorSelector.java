@@ -29,11 +29,6 @@ public class ColorSelector implements SettingElement {
         return parent;
     }
 
-    float oneDX;
-    float oneDY;
-    float twoDY;
-    float thrDX;
-
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
@@ -48,9 +43,9 @@ public class ColorSelector implements SettingElement {
             {
                 // ID:1
                 if (getModuleButton(parent).isColorSelectorDragging(this, 1)) {
-                    if (RenderUtil.isHoveringArea(mouseX, mouseY, 4, 4, 104, 80)) {
+                    if (RenderUtil.isHoveringArea(mouseX, mouseY-40, 4, 4, 104, 80)) {
                         hsb[1] = (mouseX-4)/104;
-                        hsb[2] = (mouseY-4)/80;
+                        hsb[2] = Math.abs(1-(mouseY-44)/80);
                     }
                 }
             }
@@ -58,17 +53,19 @@ public class ColorSelector implements SettingElement {
             {
                 // ID:2
                 if (getModuleButton(parent).isColorSelectorDragging(this, 2)) {
-                    if (RenderUtil.isHoveringArea(mouseX, mouseY, 113, 4, 8, 80)) {
-                        hsb[0] = (mouseY - 4)/80;
+                    if (RenderUtil.isHoveringArea(mouseX, mouseY-40, 113, 4, 8, 80)) {
+                        hsb[0] = (mouseY-44) / 80;
                     }
                 }
             }
 
             if (setting.isAllowAlpha()) {
                 // ID:3
-                if (RenderUtil.isHoveringArea(mouseX, mouseY, 4, 88, 117, 8)) {
+                if (RenderUtil.isHoveringArea(mouseX, mouseY-40, 4, 88, 117, 8)) {
+                    fr.drawStringWithShadow("R:"+getModuleButton(parent).isColorSelectorDragging(this, 3), mouseX, mouseY-40, -1);
                     if (getModuleButton(parent).isColorSelectorDragging(this, 3)) {
-                        alpha = (int) ((mouseX - 4)/117 * 255);
+                        // 你好朋友,请帮助我修复它并发起pull request,谢谢。
+                        alpha = (int) (((mouseX - 4)/117) * 255);
                     }
                 }
             }
@@ -82,7 +79,9 @@ public class ColorSelector implements SettingElement {
 
                 RenderUtil.drawVHueBar(113, 4, 8, 80, 1, 1);
 
-                RenderUtil.drawHGradientRect(4, 88, 117, 8, new Color(0, 0, 0, 0).getRGB(), setting.getValue().getRGB());
+                if (setting.isAllowAlpha()) {
+                    RenderUtil.drawHGradientRect(4, 88, 117, 8, new Color(0, 0, 0, 0).getRGB(), setting.getValue().getRGB());
+                }
             }
 
             GL11.glPopMatrix();
@@ -97,14 +96,10 @@ public class ColorSelector implements SettingElement {
         }
         if (shouldShowPanel()) {
             if (RenderUtil.isHoveringArea(mouseX, mouseY, 4, 4, 104, 80)) {
-                oneDX = mouseX - 4;
-                oneDY = mouseY - 4;
                 getModuleButton(parent).setColorSelectorDragging(this, 1, true);
             } else if (RenderUtil.isHoveringArea(mouseX, mouseY, 113, 4, 8, 80)) {
-                twoDY = mouseY - 4;
                 getModuleButton(parent).setColorSelectorDragging(this, 2, true);
             } else if (RenderUtil.isHoveringArea(mouseX, mouseY, 4, 88, 117, 8)) {
-                thrDX = mouseX - 4;
                 getModuleButton(parent).setColorSelectorDragging(this, 3, true);
             }
         }

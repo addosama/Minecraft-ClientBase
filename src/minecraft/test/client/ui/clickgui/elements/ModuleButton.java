@@ -90,7 +90,7 @@ public class ModuleButton implements GuiElement {
                     map.put(2, false);
                     map.put(3, false);
                     colorSettingShowPanelMap.putIfAbsent(((ColorSelector)last).getSetting(), false);
-                    colorSettingDraggingMap.putIfAbsent(((ColorSelector) last).getSetting(), map);
+                    colorSettingDraggingMap.putIfAbsent(((ColorSelector)last).getSetting(), map);
                     list.add(last);
                 }
             }
