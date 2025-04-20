@@ -2,10 +2,9 @@ package test.client.module.impl.render;
 
 import test.client.module.Module;
 import test.client.module.ModuleCategory;
-import test.client.utils.setting.impl.BooleanSetting;
-import test.client.utils.setting.impl.DoubleSetting;
-import test.client.utils.setting.impl.IntegerSetting;
-import test.client.utils.setting.impl.ModeSetting;
+import test.client.utils.setting.impl.*;
+
+import java.awt.*;
 
 public class TestModule extends Module {
     public BooleanSetting booleanSetting = new BooleanSetting("Bool", "", true);
@@ -17,5 +16,7 @@ public class TestModule extends Module {
         settings.add(doubleSetting);
         settings.add(new IntegerSetting("Int", "", 2, 0, 10, 1));
         settings.add(new ModeSetting("Mode", "", 2, "Mode 1", "Mode 2", "Mode 3"));
+        settings.add(new ColorSetting("Color1", "", Color.RED, true));
+        settings.add(new ColorSetting("Color2", "", Color.BLUE, false));
     }
 }
