@@ -51,6 +51,7 @@ public class ModuleButton implements GuiElement {
         } else {
             GuiElement last = this;
             for (Setting<?> setting : module.getSettings()) {
+                if (!setting.isAvailable()) continue;
                 if (setting instanceof BooleanSetting) {
                     last = new CheckBox((BooleanSetting) setting, last);
                     list.add(last);
