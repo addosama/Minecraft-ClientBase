@@ -59,8 +59,8 @@ public class Selector implements SettingElement {
 
     @Override
     public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
-        if (RenderUtil.isHoveringArea(mouseX, mouseY, getWidth() - 4 - mBox.getWidth(), 4, mBox.getWidth(), 12)) {
-            getModuleButton(parent).setShowMode(this, !shouldShowMode());
+        if (RenderUtil.isHoveringArea(mouseX, mouseY, getWidth() - 4 - mBox.getWidth(), 4, mBox.getWidth(), mBox.getHeight())) {
+            mBox.mouseClicked(mouseX - (getWidth() - 4 - mBox.getWidth()), mouseY - 4, mouseButton);
         }
     }
 
@@ -102,6 +102,16 @@ public class Selector implements SettingElement {
                     fr.drawCenteredString(s, (w1/2), y2 + 6, true, true, setting.getCurrentName().equals(s)? new Color(253, 137, 109).getRGB() : -1, false);
                     y2 += 12;
                 }
+            }
+        }
+
+        @Override
+        public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
+            if (mouseY <= 12) getModuleButton(parent).setShowMode(parent, !shouldShowMode());
+            else {
+                float my2 = mouseY - 12;
+                int index = (int) my2 / 12;
+                parent.getSetting().setValue(index);
             }
         }
 
