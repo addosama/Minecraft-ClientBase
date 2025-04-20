@@ -1,5 +1,6 @@
 package net.minecraft.client.renderer.texture;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -312,6 +313,9 @@ public class TextureUtil
         try
         {
             bufferedimage = ImageIO.read(imageStream);
+        }
+        catch (IllegalArgumentException e) {
+            bufferedimage = new BufferedImage(64,64, Image.SCALE_DEFAULT);
         }
         finally
         {
