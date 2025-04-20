@@ -4,8 +4,12 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11.*;
 
 import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtil {
     public static void drawRect(float x, float y, float width, float height, int color) {
@@ -85,6 +89,36 @@ public class RenderUtil {
             drawVGradientRect(x, y + ((i-1)*sH), width, sH, cT, cB);
             i++;
         }
+    }
+    public static void drawBorder(float x, float y, float width, float height, float borderWidth, int color) {
+        drawBorder(x, y, x+width, y+height, borderWidth, color, false);
+    }
+    private static void drawBorder(float x, float y, float x2, float y2, float width, int color1, boolean b) {
+        GL11.glEnable(GL_BLEND);
+        GL11.glDisable(GL_TEXTURE_2D);
+        GL11.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        color(color1);
+        GL11.glLineWidth(width);
+
+        GL11.glBegin(GL_LINE_LOOP);
+
+        GL11.glVertex2d(x2, y);
+        GL11.glVertex2d(x, y);
+        GL11.glVertex2d(x, y2);
+        GL11.glVertex2d(x2, y2);
+
+        GL11.glEnd();
+
+        GL11.glEnable(GL_TEXTURE_2D);
+        GL11.glDisable(GL_BLEND);
+    }
+    public static void color(int color) {
+        float f = (float) (color >> 24 & 255) / 255.0f;
+        float f1 = (float) (color >> 16 & 255) / 255.0f;
+        float f2 = (float) (color >> 8 & 255) / 255.0f;
+        float f3 = (float) (color & 255) / 255.0f;
+        GL11.glColor4f(f1, f2, f3, f);
     }
     public static boolean isHoveringArea(float mouseX, float mouseY, float areaX, float areaY, float areaWidth, float areaHeight) {
         return (mouseY >= areaY && mouseY <= areaY+areaHeight) && (mouseX >= areaX && mouseX <= areaX+areaWidth);
