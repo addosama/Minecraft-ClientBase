@@ -5,6 +5,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
+import java.awt.*;
+
 public class RenderUtil {
     public static void drawRect(float x, float y, float width, float height, int color) {
         float left = x;
@@ -71,6 +73,18 @@ public class RenderUtil {
     }
     public static void drawVGradientRect(float x, float y, float width, float height, int top, int bottom) {
         drawGradientRect(x, y, width, height, top, top, bottom, bottom);
+    }
+    public static void drawVHueBar(float x, float y, float width, float height, float saturation, float brightness) {
+        float sH = height/5;
+        int i = 1;
+        int cT;
+        int cB = Color.RED.getRGB();
+        while (i <= 5) {
+            cT = cB;
+            cB = Color.HSBtoRGB(i*0.2f, saturation, brightness);
+            drawVGradientRect(x, y + ((i-1)*sH), width, sH, cT, cB);
+            i++;
+        }
     }
     public static boolean isHoveringArea(float mouseX, float mouseY, float areaX, float areaY, float areaWidth, float areaHeight) {
         return (mouseY >= areaY && mouseY <= areaY+areaHeight) && (mouseX >= areaX && mouseX <= areaX+areaWidth);
