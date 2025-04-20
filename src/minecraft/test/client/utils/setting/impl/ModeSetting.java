@@ -19,4 +19,8 @@ public class ModeSetting extends Setting<Integer> {
     public String getCurrentName() {
         return getModeName(getValue());
     }
+
+    public ArrayList<String> getModes() {
+        return modes;
+    }
 }

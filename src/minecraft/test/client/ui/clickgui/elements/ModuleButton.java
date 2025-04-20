@@ -18,6 +18,7 @@ public class ModuleButton implements GuiElement {
     private boolean showSettings;
 
     private ArrayList<GuiElement> settings;
+
     private final HashMap<NumberSetting<?>, Boolean> sliderDraggingMap;
     public void setDragging(Slider e, boolean dragging) {
         sliderDraggingMap.put(e.getSetting(), dragging );
@@ -27,11 +28,20 @@ public class ModuleButton implements GuiElement {
         return r;
     }
 
+    private final HashMap<ModeSetting, Boolean> selectorShowModeMap;
+    public void setShowMode(Selector e, Boolean showMode) {
+        selectorShowModeMap.put(e.getSetting(), showMode);
+    }
+    public boolean shouldShowMode(Selector e) {
+        return selectorShowModeMap.get(e.getSetting());
+    }
+
     public ModuleButton(Module module) {
         this.module = module;
         sliderDraggingMap = new HashMap<>();
-        updateSettings();
+        selectorShowModeMap = new HashMap<>();
         showSettings = false;
+        updateSettings();
     }
 
     private void updateSettings() {
@@ -47,6 +57,10 @@ public class ModuleButton implements GuiElement {
                 } else if (setting instanceof NumberSetting) {
                     last = new Slider((NumberSetting) setting, last);
                     sliderDraggingMap.putIfAbsent(((Slider)last).getSetting(), false);
+                    list.add(last);
+                } else if (setting instanceof ModeSetting) {
+                    last = new Selector((ModeSetting) setting, last);
+                    selectorShowModeMap.putIfAbsent(((Selector) last).getSetting(), false);
                     list.add(last);
                 }
             }
