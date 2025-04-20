@@ -7,19 +7,16 @@ import java.util.Arrays;
 
 public class ModeSetting extends Setting<Integer> {
     private final ArrayList<String> modes;
-    private final int defaultValue;
-    public ModeSetting(String name, String description, String defaultValue, String... modes) {
-        super(name, description, -1);
+    public ModeSetting(String name, String description, Integer defaultValue, String... modes) {
+        super(name, description, defaultValue - 1);
         this.modes = new ArrayList<>(Arrays.asList(modes));
-        this.defaultValue = this.modes.indexOf(defaultValue);
-    }
-
-    @Override
-    public Integer getDefaultValue() {
-        return defaultValue;
     }
 
     public String getModeName(int mode) {
         return modes.get(mode);
+    }
+
+    public String getCurrentName() {
+        return getModeName(getValue());
     }
 }
