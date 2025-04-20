@@ -600,8 +600,11 @@ public class WorldRenderer
     }
 
     public WorldRenderer color(int color) {
-        Color c = new Color(color);
-        return color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+        float f3 = (float)(color >> 24 & 255) / 255.0F;
+        float f = (float)(color >> 16 & 255) / 255.0F;
+        float f1 = (float)(color >> 8 & 255) / 255.0F;
+        float f2 = (float)(color & 255) / 255.0F;
+        return color(f, f1, f2, f3);
     }
 
     public class State

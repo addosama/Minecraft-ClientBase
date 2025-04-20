@@ -69,6 +69,9 @@ public class RenderUtil {
     public static void drawHGradientRect(float x, float y, float width, float height, int left, int right) {
         drawGradientRect(x, y, width, height, left, right, left, right);
     }
+    public static void drawVGradientRect(float x, float y, float width, float height, int top, int bottom) {
+        drawGradientRect(x, y, width, height, top, top, bottom, bottom);
+    }
     public static boolean isHoveringArea(float mouseX, float mouseY, float areaX, float areaY, float areaWidth, float areaHeight) {
         return (mouseY >= areaY && mouseY <= areaY+areaHeight) && (mouseX >= areaX && mouseX <= areaX+areaWidth);
     }
