@@ -11,6 +11,8 @@ import test.client.utils.setting.impl.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ModuleButton implements GuiElement {
     private final Module module;
@@ -44,12 +46,12 @@ public class ModuleButton implements GuiElement {
         return colorSettingShowPanelMap.get(e.getSetting());
     }
 
-    private final HashMap<ColorSetting, Boolean> colorSettingDraggingMap;
-    public void setColorSettingDragging(ColorSelector e, Boolean dragging) {
-        colorSettingDraggingMap.put(e.getSetting(), dragging);
+    private final HashMap<ColorSetting, Map<Integer, Boolean>> colorSettingDraggingMap;
+    public void setColorSelectorDragging(ColorSelector e, int widgetID, Boolean dragging) {
+        colorSettingDraggingMap.get(e.getSetting()).put(widgetID, dragging);
     }
-    public boolean isColorSelectorDragging(ColorSelector e) {
-        return colorSettingDraggingMap.get(e.getSetting());
+    public boolean isColorSelectorDragging(ColorSelector e, int widgetID) {
+        return colorSettingDraggingMap.get(e.getSetting()).get(widgetID);
     }
 
     public ModuleButton(Module module) {
@@ -83,7 +85,12 @@ public class ModuleButton implements GuiElement {
                     list.add(last);
                 } else if (setting instanceof ColorSetting) {
                     last = new ColorSelector((ColorSetting) setting, last);
+                    Map<Integer, Boolean> map = new HashMap<>();
+                    map.put(1, false);
+                    map.put(2, false);
+                    map.put(3, false);
                     colorSettingShowPanelMap.putIfAbsent(((ColorSelector)last).getSetting(), false);
+                    colorSettingDraggingMap.putIfAbsent(((ColorSelector) last).getSetting(), map);
                     list.add(last);
                 }
             }
@@ -131,10 +138,8 @@ public class ModuleButton implements GuiElement {
     public void mouseReleased(float mouseX, float mouseY, int state) {
         for (GuiElement e : settings) {
             if (e.isHovering(mouseX, mouseY-20)) e.mouseReleased(mouseX, mouseY - 20 - e.getY(), state);
-            if (e instanceof Slider) {
-                setSliderDragging((Slider) e, false);
-            }
         }
+        resetDragging();
     }
 
     @Override
@@ -169,6 +174,10 @@ public class ModuleButton implements GuiElement {
         for (GuiElement e : settings) {
             if (e instanceof Slider) {
                 setSliderDragging((Slider) e, false);
+            } if (e instanceof ColorSelector) {
+                setColorSelectorDragging((ColorSelector) e, 1, false);
+                setColorSelectorDragging((ColorSelector) e, 2, false);
+                setColorSelectorDragging((ColorSelector) e, 3, false);
             }
         }
     }
