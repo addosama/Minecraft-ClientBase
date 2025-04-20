@@ -40,7 +40,7 @@ public class CategoryPanel implements GuiElement {
         RenderUtil.drawRect(0, 0, getWidth(), getHeight(), new Color(0, 0, 0, 150).getRGB());
         RenderUtil.drawHGradientRect(0,0,getWidth(),20, new Color(253, 137, 109).getRGB(), new Color(255, 218, 98).getRGB());
         Minecraft.getMinecraft().fontRendererObj.drawCenteredString(category.getName(), 4, 10, false, true, -1, true);
-        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(stacked?"+":"-", 121-Minecraft.getMinecraft().fontRendererObj.getStringWidth(stacked?"+":"-"), 10, false, true, dragging? Color.RED.getRGB() : -1, true);
+        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(stacked?"+":"-", 121-Minecraft.getMinecraft().fontRendererObj.getStringWidth(stacked?"+":"-"), 10, false, true, -1, true);
         if (!stacked) {
             float f = 20;
             for (ModuleButton m : modules) {
