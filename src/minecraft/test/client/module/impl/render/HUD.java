@@ -19,13 +19,13 @@ public class HUD extends Module {
     @Subscribe
     public void onRender(EventRenderGameOverlay e) {
         FontRenderer fr = mc.fontRendererObj;
-        fr.drawString(Client.NAME, 2, 2, -1);
+        fr.drawStringWithShadow(Client.NAME, 2, 2, -1);
         {
             ArrayList<Module> enabledModuleList = new ArrayList<>(Client.INSTANCE.moduleManager.getModules(true));
             enabledModuleList.sort((o1, o2) -> (fr.getStringWidth(o2.getName()) - fr.getStringWidth(o1.getName())));
             int i = 0;
             for (Module m : enabledModuleList) {
-                fr.drawString(m.getName(), 2, 14 + i, -1);
+                fr.drawStringWithShadow(m.getName(), 2, 14 + i, -1);
                 i = i + fr.FONT_HEIGHT + 2;
             }
         }
