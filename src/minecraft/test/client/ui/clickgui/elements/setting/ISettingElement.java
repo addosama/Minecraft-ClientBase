@@ -5,10 +5,10 @@ import test.client.ui.clickgui.elements.ModuleButton;
 
 public interface ISettingElement extends GuiElement {
     GuiElement getParent();
-    default ModuleButton getModuleButton(GuiElement givenParent) {
-        if (givenParent instanceof ModuleButton) return (ModuleButton) givenParent;
+    default ModuleButton getModuleButton() {
+        if (getParent() instanceof ModuleButton) return (ModuleButton) getParent();
         else {
-            return getModuleButton(((ISettingElement) givenParent).getParent());
+            return ((ISettingElement) getParent()).getModuleButton();
         }
     }
 }

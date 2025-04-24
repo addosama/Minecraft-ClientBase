@@ -52,7 +52,7 @@ public class Selector extends SettingElement {
     }
 
     protected boolean shouldShowMode() {
-        return getModuleButton(getParent()).shouldShowMode(this);
+        return getModuleButton().shouldShowMode(this);
     }
 
     class box implements GuiElement {
@@ -85,7 +85,7 @@ public class Selector extends SettingElement {
 
         @Override
         public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
-            if (mouseY <= 12) getModuleButton(parent).setShowMode(parent, !shouldShowMode());
+            if (mouseY <= 12) getModuleButton().setShowMode(parent, !shouldShowMode());
             else {
                 float my2 = mouseY - 12;
                 int index = (int) my2 / 12;

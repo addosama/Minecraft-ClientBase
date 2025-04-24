@@ -34,7 +34,7 @@ public class ColorSelector extends SettingElement {
 
             {
                 // ID:1
-                if (getModuleButton(getParent()).isColorSelectorDragging(this, 1)) {
+                if (getModuleButton().isColorSelectorDragging(this, 1)) {
                     if (RenderUtil.isHoveringArea(mouseX, mouseY-40, 4, 4, 104, 80)) {
                         hsb[1] = (mouseX-4)/104;
                         hsb[2] = Math.abs(1-(mouseY-44)/80);
@@ -44,7 +44,7 @@ public class ColorSelector extends SettingElement {
 
             {
                 // ID:2
-                if (getModuleButton(getParent()).isColorSelectorDragging(this, 2)) {
+                if (getModuleButton().isColorSelectorDragging(this, 2)) {
                     if (RenderUtil.isHoveringArea(mouseX, mouseY-40, 113, 4, 8, 80)) {
                         hsb[0] = (mouseY-44) / 80;
                     }
@@ -54,8 +54,8 @@ public class ColorSelector extends SettingElement {
             if (setting.isAllowAlpha()) {
                 // ID:3
                 if (RenderUtil.isHoveringArea(mouseX, mouseY-40, 4, 88, 117, 8)) {
-                    fr.drawStringWithShadow("R:"+getModuleButton(getParent()).isColorSelectorDragging(this, 3), mouseX, mouseY-40, -1);
-                    if (getModuleButton(getParent()).isColorSelectorDragging(this, 3)) {
+                    fr.drawStringWithShadow("R:"+getModuleButton().isColorSelectorDragging(this, 3), mouseX, mouseY-40, -1);
+                    if (getModuleButton().isColorSelectorDragging(this, 3)) {
                         // 你好朋友,请帮助我修复它并发起pull request,谢谢。
                         alpha = (int) (((mouseX - 4)/117) * 255);
                     }
@@ -84,15 +84,15 @@ public class ColorSelector extends SettingElement {
     @Override
     public void mouseClicked(float mouseX, float mouseY, int mouseButton) {
         if (RenderUtil.isHoveringArea(mouseX, mouseY, getWidth()-16, 4, 12, 12)) {
-            getModuleButton(getParent()).setShowPanel(this, !shouldShowPanel());
+            getModuleButton().setShowPanel(this, !shouldShowPanel());
         }
         if (shouldShowPanel()) {
             if (RenderUtil.isHoveringArea(mouseX, mouseY, 4, 4, 104, 80)) {
-                getModuleButton(getParent()).setColorSelectorDragging(this, 1, true);
+                getModuleButton().setColorSelectorDragging(this, 1, true);
             } else if (RenderUtil.isHoveringArea(mouseX, mouseY, 113, 4, 8, 80)) {
-                getModuleButton(getParent()).setColorSelectorDragging(this, 2, true);
+                getModuleButton().setColorSelectorDragging(this, 2, true);
             } else if (RenderUtil.isHoveringArea(mouseX, mouseY, 4, 88, 117, 8)) {
-                getModuleButton(getParent()).setColorSelectorDragging(this, 3, true);
+                getModuleButton().setColorSelectorDragging(this, 3, true);
             }
         }
     }
@@ -107,6 +107,6 @@ public class ColorSelector extends SettingElement {
     }
 
     public boolean shouldShowPanel() {
-        return getModuleButton(getParent()).shouldShowPanel(this);
+        return getModuleButton().shouldShowPanel(this);
     }
 }
