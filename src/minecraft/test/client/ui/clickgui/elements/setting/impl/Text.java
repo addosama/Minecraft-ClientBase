@@ -1,6 +1,7 @@
 package test.client.ui.clickgui.elements.setting.impl;
 
 import net.minecraft.client.Minecraft;
+import test.client.module.impl.render.CGUI;
 import test.client.ui.GuiElement;
 import test.client.ui.clickgui.elements.setting.SettingElement;
 
@@ -14,7 +15,7 @@ public class Text extends SettingElement {
 
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
-        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(text, 4, 6, false, true, -1, false);
+        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(text, 4, 6, false, true, CGUI.textColor.getValue().getRGB(), false);
     }
 
     @Override

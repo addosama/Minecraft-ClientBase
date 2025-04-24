@@ -3,6 +3,7 @@ package test.client.ui.clickgui.elements.setting.impl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import org.lwjgl.opengl.GL11;
+import test.client.module.impl.render.CGUI;
 import test.client.ui.GuiElement;
 import test.client.ui.clickgui.elements.setting.SettingElement;
 import test.client.utils.RenderUtil;
@@ -24,7 +25,7 @@ public class Selector extends SettingElement {
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-        fr.drawCenteredString(setting.getName(), 4, 10, false, true, -1, false);
+        fr.drawCenteredString(setting.getName(), 4, 10, false, true, CGUI.textColor.getValue().getRGB(), false);
 
         // draw box
         {
@@ -62,7 +63,7 @@ public class Selector extends SettingElement {
         public box(Selector parent) {
             this.parent = parent;
             float h1 = 0;
-            for (String s : parent.getSetting().getModes()) h1 = h1 + 12;
+            for (String ignored : parent.getSetting().getModes()) h1 = h1 + 12;
             modeH = h1;
             w1 = Minecraft.getMinecraft().fontRendererObj.getStringWidth(setting.getCurrentName()) + 8;
         }
@@ -70,14 +71,14 @@ public class Selector extends SettingElement {
         @Override
         public void draw(float mouseX, float mouseY, float partialTicks) {
             FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-            RenderUtil.drawRect(0, 0, w1, getHeight(), new Color(0,0,0, 125).getRGB());
-            RenderUtil.drawRect(w1, 0, 12, 12, new Color(253, 137, 109).getRGB());
-            fr.drawCenteredString(setting.getCurrentName(), (w1/2), 6, true, true, -1, false);
-            fr.drawCenteredString(shouldShowMode()? "-" : "+", w1 + 6, 6, true, true, -1, false);
+            RenderUtil.drawRect(0, 0, w1, getHeight(), CGUI.bgColor.getValue().getRGB());
+            RenderUtil.drawRect(w1, 0, 12, 12, CGUI.accentColor.getValue().getRGB());
+            fr.drawCenteredString(setting.getCurrentName(), (w1/2), 6, true, true, CGUI.textColor.getValue().getRGB(), false);
+            fr.drawCenteredString(shouldShowMode()? "-" : "+", w1 + 6, 6, true, true, CGUI.textColor.getValue().getRGB(), false);
             if (shouldShowMode()) {
                 float y2 = 12;
                 for (String s: setting.getModes()) {
-                    fr.drawCenteredString(s, (w1/2), y2 + 6, true, true, setting.getCurrentName().equals(s)? new Color(253, 137, 109).getRGB() : -1, false);
+                    fr.drawCenteredString(s, (w1/2), y2 + 6, true, true, setting.getCurrentName().equals(s)? CGUI.accentColor.getValue().getRGB() : CGUI.textColor.getValue().getRGB(), false);
                     y2 += 12;
                 }
             }

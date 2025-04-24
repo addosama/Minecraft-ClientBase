@@ -3,6 +3,7 @@ package test.client.ui.clickgui.elements.setting.impl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import org.lwjgl.opengl.GL11;
+import test.client.module.impl.render.CGUI;
 import test.client.ui.GuiElement;
 import test.client.ui.clickgui.elements.setting.SettingElement;
 import test.client.utils.ColorUtil;
@@ -24,7 +25,7 @@ public class ColorSelector extends SettingElement {
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-        fr.drawCenteredString(setting.getName(), 4, 10, false, true, -1, false);
+        fr.drawCenteredString(setting.getName(), 4, 10, false, true, CGUI.textColor.getValue().getRGB(), false);
         if (shouldShowPanel()) {
             GL11.glPushMatrix();
             GL11.glTranslatef(0,20,0);

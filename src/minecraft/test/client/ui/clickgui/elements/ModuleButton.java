@@ -3,6 +3,7 @@ package test.client.ui.clickgui.elements;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import test.client.module.Module;
+import test.client.module.impl.render.CGUI;
 import test.client.ui.GuiElement;
 import test.client.ui.clickgui.elements.setting.impl.*;
 import test.client.utils.RenderUtil;
@@ -102,11 +103,11 @@ public class ModuleButton implements GuiElement {
     public void draw(float mouseX, float mouseY, float partialTicks) {
         GL11.glPushMatrix();
         GL11.glTranslatef(0, y, 0);
-        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(module.getName(), module.isEnabled()? 8:4, 10, false,true, module.isEnabled()? new Color(253, 137, 109).getRGB():-1, true);
+        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(module.getName(), module.isEnabled()? 8:4, 10, false,true, module.isEnabled()? CGUI.moduleTextColorE.getValue().getRGB() : CGUI.moduleTextColorD.getValue().getRGB(), false);
         if (showSettings) {
             GL11.glPushMatrix();
             GL11.glTranslatef(0, 20, 0);
-            RenderUtil.drawRect(0, 0, getWidth(), getHeight()-20, new Color(0,0,0,100).getRGB());
+            RenderUtil.drawRect(0, 0, getWidth(), getHeight()-20, CGUI.bgColor.getValue().getRGB());
             float f = 0;
             for (GuiElement e : settings) {
                 GL11.glPushMatrix();

@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import test.client.module.ModuleManager;
 import test.client.ui.clickgui.ClickGui;
 
+// TODO: 参数保存
 public class Client {
     public static Client INSTANCE;
 

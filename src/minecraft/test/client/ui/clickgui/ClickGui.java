@@ -12,7 +12,6 @@ import test.client.ui.clickgui.elements.ModuleButton;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// TODO: 我知道代码也许有点乱 但我有时间会优化的
 public class ClickGui extends GuiScreen {
     private final ArrayList<CategoryPanel> panels;
     private float y;

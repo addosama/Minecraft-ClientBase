@@ -1,6 +1,7 @@
 package test.client.ui.clickgui.elements.setting.impl;
 
 import net.minecraft.client.Minecraft;
+import test.client.module.impl.render.CGUI;
 import test.client.ui.GuiElement;
 import test.client.ui.clickgui.elements.setting.SettingElement;
 import test.client.utils.RenderUtil;
@@ -18,9 +19,9 @@ public class CheckBox extends SettingElement {
 
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
-        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(setting.getName(), 4, 10, false, true, -1, false);
-        RenderUtil.drawRect(getWidth()-16, 4, 12, 12, new Color(0,0,0,80).getRGB());
-        if (setting.getValue()) RenderUtil.drawRect(getWidth()-15, 5, 10, 10, new Color(253, 137, 109).getRGB());
+        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(setting.getName(), 4, 10, false, true, CGUI.textColor.getValue().getRGB(), false);
+        RenderUtil.drawRect(getWidth()-16, 4, 12, 12, CGUI.bgColor.getValue().getRGB());
+        if (setting.getValue()) RenderUtil.drawRect(getWidth()-15, 5, 10, 10, CGUI.accentColor.getValue().getRGB());
     }
 
     @Override

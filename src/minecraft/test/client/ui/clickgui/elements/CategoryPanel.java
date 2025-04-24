@@ -5,10 +5,10 @@ import org.lwjgl.opengl.GL11;
 import test.client.Client;
 import test.client.module.Module;
 import test.client.module.ModuleCategory;
+import test.client.module.impl.render.CGUI;
 import test.client.ui.GuiElement;
 import test.client.utils.RenderUtil;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class CategoryPanel implements GuiElement {
@@ -37,10 +37,10 @@ public class CategoryPanel implements GuiElement {
             y = mouseY - dragY + getY();
         }
         GL11.glTranslatef(x, y, 0);
-        RenderUtil.drawRect(0, 0, getWidth(), getHeight(), new Color(0, 0, 0, 150).getRGB());
-        RenderUtil.drawHGradientRect(0,0,getWidth(),20, new Color(253, 137, 109).getRGB(), new Color(255, 218, 98).getRGB());
-        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(category.getName(), 4, 10, false, true, -1, true);
-        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(stacked?"+":"-", 121-Minecraft.getMinecraft().fontRendererObj.getStringWidth(stacked?"+":"-"), 10, false, true, -1, true);
+        RenderUtil.drawRect(0, 0, getWidth(), getHeight(), CGUI.bgColor.getValue().getRGB());
+        RenderUtil.drawHGradientRect(0,0,getWidth(),20, CGUI.categoryColor1.getValue().getRGB(), CGUI.categoryColor2.getValue().getRGB());
+        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(category.getName(), 4, 10, false, true, CGUI.categoryTextColor.getValue().getRGB(), true);
+        Minecraft.getMinecraft().fontRendererObj.drawCenteredString(stacked?"+":"-", 121-Minecraft.getMinecraft().fontRendererObj.getStringWidth(stacked?"+":"-"), 10, false, true, CGUI.categoryTextColor.getValue().getRGB(), true);
         if (!stacked) {
             float f = 20;
             for (ModuleButton m : modules) {

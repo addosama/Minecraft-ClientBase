@@ -3,6 +3,7 @@ package test.client.ui.clickgui.elements.setting.impl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.MathHelper;
+import test.client.module.impl.render.CGUI;
 import test.client.ui.GuiElement;
 import test.client.ui.clickgui.elements.setting.SettingElement;
 import test.client.utils.RenderUtil;
@@ -22,7 +23,7 @@ public class Slider extends SettingElement {
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
-        fr.drawCenteredString(setting.getName(), 4, 10, false, true, -1, false);
+        fr.drawCenteredString(setting.getName(), 4, 10, false, true, CGUI.textColor.getValue().getRGB(), false);
         float x = fr.getStringWidth(setting.getName()) + 8;
         float width = getWidth() - x - 4;
         double inv = (setting.getMaxValue().doubleValue() - setting.getMinValue().doubleValue());
@@ -34,9 +35,9 @@ public class Slider extends SettingElement {
 
         float w2 = (float) (width * setting.getValue().doubleValue() / inv);
 
-        RenderUtil.drawRect(x, 4, width, 12, new Color(0,0,0,125).getRGB());
-        RenderUtil.drawRect(x+1, 5, w2, 10, new Color(253, 137, 109).getRGB());
-        fr.drawCenteredString(NumberFormat.getInstance().format(setting.getValue()), x + (width / 2), 10, true, true, -1, true);
+        RenderUtil.drawRect(x, 4, width, 12, CGUI.bgColor.getValue().getRGB());
+        RenderUtil.drawRect(x+1, 5, w2, 10, CGUI.accentColor.getValue().getRGB());
+        fr.drawCenteredString(NumberFormat.getInstance().format(setting.getValue()), x + (width / 2), 10, true, true, CGUI.textColor.getValue().getRGB(), false);
     }
 
     @Override
