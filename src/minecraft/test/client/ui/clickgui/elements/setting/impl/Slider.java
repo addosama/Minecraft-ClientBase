@@ -4,28 +4,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.MathHelper;
 import test.client.ui.GuiElement;
-import test.client.ui.clickgui.elements.ModuleButton;
-import test.client.ui.clickgui.elements.setting.ISettingElement;
+import test.client.ui.clickgui.elements.setting.SettingElement;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.impl.NumberSetting;
 
 import java.awt.*;
 import java.text.NumberFormat;
 
-public class Slider implements ISettingElement {
+public class Slider extends SettingElement {
     private final NumberSetting<Number> setting;
-    private final GuiElement parent;
-    private final float y;
 
     public Slider(NumberSetting<Number> setting, GuiElement parent) {
+        super(parent);
         this.setting = setting;
-        this.parent = parent;
-        this.y = parent instanceof ModuleButton ? 0 : parent.getY() + parent.getHeight();
     }
 
     @Override
     public void draw(float mouseX, float mouseY, float partialTicks) {
-
         FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
         fr.drawCenteredString(setting.getName(), 4, 10, false, true, -1, false);
         float x = fr.getStringWidth(setting.getName()) + 8;
@@ -49,38 +44,14 @@ public class Slider implements ISettingElement {
         float x = Minecraft.getMinecraft().fontRendererObj.getStringWidth(setting.getName()) + 8;
         if (RenderUtil.isHoveringArea(mouseX, mouseY, x, 4, getWidth() - x - 4, 12)) {
             if (mouseButton == 0) {
-                getModuleButton(parent).setSliderDragging(this, true);
+                getModuleButton(getParent()).setSliderDragging(this, true);
             }
         }
     }
 
     @Override
-    public void mouseReleased(float mouseX, float mouseY, int state) {
-    }
-
-    @Override
-    public float getX() {
-        return 0;
-    }
-
-    @Override
-    public float getY() {
-        return y;
-    }
-
-    @Override
-    public float getWidth() {
-        return 125;
-    }
-
-    @Override
     public float getHeight() {
         return 20;
-    }
-
-    @Override
-    public GuiElement getParent() {
-        return parent;
     }
 
     public NumberSetting<Number> getSetting() {

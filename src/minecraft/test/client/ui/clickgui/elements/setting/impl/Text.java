@@ -2,18 +2,14 @@ package test.client.ui.clickgui.elements.setting.impl;
 
 import net.minecraft.client.Minecraft;
 import test.client.ui.GuiElement;
-import test.client.ui.clickgui.elements.ModuleButton;
-import test.client.ui.clickgui.elements.setting.ISettingElement;
+import test.client.ui.clickgui.elements.setting.SettingElement;
 
-public class Text implements ISettingElement {
+public class Text extends SettingElement {
     private final String text;
-    private final GuiElement parent;
-    private final float y;
 
     public Text(String text, GuiElement parent) {
+        super(parent);
         this.text = text;
-        this.parent = parent;
-        this.y = parent instanceof ModuleButton ? 0 : parent.getY() + parent.getHeight();
     }
 
     @Override
@@ -22,27 +18,7 @@ public class Text implements ISettingElement {
     }
 
     @Override
-    public float getX() {
-        return 0;
-    }
-
-    @Override
-    public float getY() {
-        return y;
-    }
-
-    @Override
-    public float getWidth() {
-        return 125;
-    }
-
-    @Override
     public float getHeight() {
         return 12;
-    }
-
-    @Override
-    public GuiElement getParent() {
-        return parent;
     }
 }

@@ -4,30 +4,21 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import org.lwjgl.opengl.GL11;
 import test.client.ui.GuiElement;
-import test.client.ui.clickgui.elements.ModuleButton;
-import test.client.ui.clickgui.elements.setting.ISettingElement;
+import test.client.ui.clickgui.elements.setting.SettingElement;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.impl.ModeSetting;
 
 import java.awt.*;
 
-public class Selector implements ISettingElement {
+public class Selector extends SettingElement {
     private final ModeSetting setting;
-    private final GuiElement parent;
-    private final float y;
 
     private final box mBox;
 
     public Selector(ModeSetting setting, GuiElement parent) {
+        super(parent);
         this.setting = setting;
-        this.parent = parent;
-        this.y = parent instanceof ModuleButton ? 0 : parent.getY() + parent.getHeight();
         this.mBox = new box(this);
-    }
-
-    @Override
-    public GuiElement getParent() {
-        return parent;
     }
 
     @Override
@@ -42,21 +33,6 @@ public class Selector implements ISettingElement {
             mBox.draw(mouseX - mBox.getX(), mouseY - mBox.getY(), partialTicks);
             GL11.glPopMatrix();
         }
-    }
-
-    @Override
-    public float getX() {
-        return 0;
-    }
-
-    @Override
-    public float getY() {
-        return y;
-    }
-
-    @Override
-    public float getWidth() {
-        return 125;
     }
 
     @Override
@@ -76,7 +52,7 @@ public class Selector implements ISettingElement {
     }
 
     protected boolean shouldShowMode() {
-        return getModuleButton(parent).shouldShowMode(this);
+        return getModuleButton(getParent()).shouldShowMode(this);
     }
 
     class box implements GuiElement {
