@@ -1,16 +1,18 @@
-package test.client.ui.clickgui.elements;
+package test.client.ui.clickgui.elements.setting.impl;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.MathHelper;
 import test.client.ui.GuiElement;
+import test.client.ui.clickgui.elements.ModuleButton;
+import test.client.ui.clickgui.elements.setting.ISettingElement;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.impl.NumberSetting;
 
 import java.awt.*;
 import java.text.NumberFormat;
 
-public class Slider implements SettingElement {
+public class Slider implements ISettingElement {
     private final NumberSetting<Number> setting;
     private final GuiElement parent;
     private final float y;
@@ -18,7 +20,7 @@ public class Slider implements SettingElement {
     public Slider(NumberSetting<Number> setting, GuiElement parent) {
         this.setting = setting;
         this.parent = parent;
-        this.y = parent instanceof ModuleButton? 0 : parent.getY() + parent.getHeight();
+        this.y = parent instanceof ModuleButton ? 0 : parent.getY() + parent.getHeight();
     }
 
     @Override

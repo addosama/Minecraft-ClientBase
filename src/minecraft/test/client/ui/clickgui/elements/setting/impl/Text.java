@@ -1,9 +1,11 @@
-package test.client.ui.clickgui.elements;
+package test.client.ui.clickgui.elements.setting.impl;
 
 import net.minecraft.client.Minecraft;
 import test.client.ui.GuiElement;
+import test.client.ui.clickgui.elements.ModuleButton;
+import test.client.ui.clickgui.elements.setting.ISettingElement;
 
-public class Text implements SettingElement {
+public class Text implements ISettingElement {
     private final String text;
     private final GuiElement parent;
     private final float y;
@@ -11,7 +13,7 @@ public class Text implements SettingElement {
     public Text(String text, GuiElement parent) {
         this.text = text;
         this.parent = parent;
-        this.y = parent instanceof ModuleButton? 0 : parent.getY() + parent.getHeight();
+        this.y = parent instanceof ModuleButton ? 0 : parent.getY() + parent.getHeight();
     }
 
     @Override

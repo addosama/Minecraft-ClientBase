@@ -1,13 +1,15 @@
-package test.client.ui.clickgui.elements;
+package test.client.ui.clickgui.elements.setting.impl;
 
 import net.minecraft.client.Minecraft;
 import test.client.ui.GuiElement;
+import test.client.ui.clickgui.elements.ModuleButton;
+import test.client.ui.clickgui.elements.setting.ISettingElement;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.impl.BooleanSetting;
 
 import java.awt.*;
 
-public class CheckBox implements SettingElement {
+public class CheckBox implements ISettingElement {
     private final BooleanSetting setting;
     private final GuiElement parent;
     private final float y;
@@ -15,7 +17,7 @@ public class CheckBox implements SettingElement {
     public CheckBox(BooleanSetting setting, GuiElement parent) {
         this.setting = setting;
         this.parent = parent;
-        this.y = parent instanceof ModuleButton? 0 : parent.getY() + parent.getHeight();
+        this.y = parent instanceof ModuleButton ? 0 : parent.getY() + parent.getHeight();
     }
 
     @Override

@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import test.client.module.Module;
 import test.client.ui.GuiElement;
+import test.client.ui.clickgui.elements.setting.impl.*;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.Setting;
 import test.client.utils.setting.impl.*;
@@ -11,7 +12,6 @@ import test.client.utils.setting.impl.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ModuleButton implements GuiElement {

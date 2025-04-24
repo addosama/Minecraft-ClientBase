@@ -1,16 +1,18 @@
-package test.client.ui.clickgui.elements;
+package test.client.ui.clickgui.elements.setting.impl;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import org.lwjgl.opengl.GL11;
 import test.client.ui.GuiElement;
+import test.client.ui.clickgui.elements.ModuleButton;
+import test.client.ui.clickgui.elements.setting.ISettingElement;
 import test.client.utils.ColorUtil;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.impl.ColorSetting;
 
 import java.awt.*;
 
-public class ColorSelector implements SettingElement {
+public class ColorSelector implements ISettingElement {
     private final ColorSetting setting;
     private final GuiElement parent;
     private final float y;
@@ -20,7 +22,7 @@ public class ColorSelector implements SettingElement {
     public ColorSelector(ColorSetting setting, GuiElement parent) {
         this.setting = setting;
         this.parent = parent;
-        this.y = parent instanceof ModuleButton? 0 : parent.getY() + parent.getHeight();
+        this.y = parent instanceof ModuleButton ? 0 : parent.getY() + parent.getHeight();
         this.panelH = setting.isAllowAlpha()? 100 : 88;
     }
 

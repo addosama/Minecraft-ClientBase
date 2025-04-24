@@ -1,15 +1,17 @@
-package test.client.ui.clickgui.elements;
+package test.client.ui.clickgui.elements.setting.impl;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import org.lwjgl.opengl.GL11;
 import test.client.ui.GuiElement;
+import test.client.ui.clickgui.elements.ModuleButton;
+import test.client.ui.clickgui.elements.setting.ISettingElement;
 import test.client.utils.RenderUtil;
 import test.client.utils.setting.impl.ModeSetting;
 
 import java.awt.*;
 
-public class Selector implements SettingElement {
+public class Selector implements ISettingElement {
     private final ModeSetting setting;
     private final GuiElement parent;
     private final float y;
@@ -19,7 +21,7 @@ public class Selector implements SettingElement {
     public Selector(ModeSetting setting, GuiElement parent) {
         this.setting = setting;
         this.parent = parent;
-        this.y = parent instanceof ModuleButton? 0 : parent.getY() + parent.getHeight();
+        this.y = parent instanceof ModuleButton ? 0 : parent.getY() + parent.getHeight();
         this.mBox = new box(this);
     }
 
